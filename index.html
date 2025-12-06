@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Completing Relationships</title>
+    <style>
+        :root {
+            --warm-cream: #F5F0E8;
+            --soft-beige: #E8DFD0;
+            --muted-terracotta: #C4A77D;
+            --deep-brown: #5C4A3D;
+            --soft-sage: #9CAF88;
+            --text-primary: #3D3229;
+            --text-secondary: #6B5B4F;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--warm-cream);
+            color: var(--text-primary);
+            line-height: 1.7;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: Georgia, 'Times New Roman', serif;
+            font-weight: normal;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--soft-beige) 0%, var(--warm-cream) 100%);
+            padding: 80px 24px;
+            text-align: center;
+            border-bottom: 1px solid var(--muted-terracotta);
+        }
+
+        .hero h1 {
+            font-size: 2.75rem;
+            color: var(--deep-brown);
+            margin-bottom: 16px;
+            letter-spacing: -0.5px;
+        }
+
+        .hero .subtitle {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto 32px;
+        }
+
+        .hero .intro {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            max-width: 650px;
+            margin: 0 auto;
+            font-style: italic;
+        }
+
+        /* Navigation */
+        .nav {
+            background: white;
+            padding: 32px 24px;
+            border-bottom: 1px solid var(--soft-beige);
+        }
+
+        .nav-inner {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .nav-label {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--muted-terracotta);
+            margin-bottom: 16px;
+        }
+
+        .nav-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 20px;
+            background: var(--warm-cream);
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--text-primary);
+            transition: all 0.2s;
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .nav-link:hover {
+            background: var(--soft-beige);
+            transform: translateY(-1px);
+        }
+
+        .nav-link .icon {
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .nav-link .text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .nav-link .title {
+            font-family: Georgia, serif;
+            font-size: 1rem;
+            color: var(--deep-brown);
+        }
+
+        .nav-link .desc {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin-top: 2px;
+        }
+
+        @media (max-width: 600px) {
+            .nav-link {
+                min-width: 100%;
+            }
+        }
+
+        /* Section Styling */
+        section {
+            padding: 64px 0;
+            border-bottom: 1px solid var(--soft-beige);
+            scroll-margin-top: 20px;
+        }
+
+        section:last-of-type {
+            border-bottom: none;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            color: var(--deep-brown);
+            margin-bottom: 16px;
+        }
+
+        .section-intro {
+            color: var(--text-secondary);
+            margin-bottom: 32px;
+            font-size: 1.05rem;
+        }
+
+        /* Audio Section */
+        .audio-resource {
+            background: white;
+            border-radius: 12px;
+            padding: 32px;
+            margin-bottom: 24px;
+            box-shadow: 0 2px 8px rgba(92, 74, 61, 0.08);
+        }
+
+        .audio-resource h3 {
+            font-size: 1.4rem;
+            color: var(--deep-brown);
+            margin-bottom: 8px;
+        }
+
+        .audio-resource .author {
+            color: var(--muted-terracotta);
+            font-size: 0.95rem;
+            margin-bottom: 16px;
+        }
+
+        .audio-resource p {
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+        }
+
+        .audio-players {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .audio-player-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .audio-player-wrapper span {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            min-width: 60px;
+        }
+
+        audio {
+            width: 100%;
+            height: 40px;
+        }
+
+        /* Accordion Styles */
+        .accordion {
+            margin-bottom: 16px;
+        }
+
+        .accordion-header {
+            background: white;
+            border: none;
+            border-radius: 8px;
+            padding: 20px 24px;
+            width: 100%;
+            text-align: left;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: Georgia, serif;
+            font-size: 1.15rem;
+            color: var(--deep-brown);
+            box-shadow: 0 1px 4px rgba(92, 74, 61, 0.06);
+            transition: background-color 0.2s;
+        }
+
+        .accordion-header:hover {
+            background-color: #FDFCFA;
+        }
+
+        .accordion-header .step-number {
+            background: var(--soft-sage);
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-family: sans-serif;
+            font-size: 0.85rem;
+            margin-right: 12px;
+        }
+
+        .accordion-header .arrow {
+            transition: transform 0.2s;
+            color: var(--muted-terracotta);
+        }
+
+        .accordion-header.active .arrow {
+            transform: rotate(180deg);
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            background: white;
+            border-radius: 0 0 8px 8px;
+            margin-top: -8px;
+        }
+
+        .accordion-content-inner {
+            padding: 0 24px 24px;
+        }
+
+        .accordion-content p {
+            margin-bottom: 16px;
+            color: var(--text-secondary);
+        }
+
+        .accordion-content .example {
+            background: var(--warm-cream);
+            padding: 16px;
+            border-radius: 6px;
+            margin: 12px 0;
+            font-style: italic;
+            color: var(--text-secondary);
+            border-left: 3px solid var(--soft-sage);
+        }
+
+        /* Prompts Section */
+        .prompts-section {
+            background: white;
+            border-radius: 12px;
+            padding: 32px;
+            margin-top: 40px;
+        }
+
+        .prompts-section h3 {
+            font-size: 1.3rem;
+            color: var(--deep-brown);
+            margin-bottom: 8px;
+        }
+
+        .prompts-section .prompts-intro {
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+        }
+
+        .prompts-list {
+            list-style: none;
+            columns: 1;
+        }
+
+        @media (min-width: 600px) {
+            .prompts-list {
+                columns: 2;
+                column-gap: 32px;
+            }
+        }
+
+        .prompts-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid var(--soft-beige);
+            color: var(--text-secondary);
+            break-inside: avoid;
+        }
+
+        /* Checklist Section */
+        .checklist-category {
+            background: white;
+            border-radius: 12px;
+            padding: 24px 32px;
+            margin-bottom: 16px;
+        }
+
+        .checklist-category h3 {
+            font-size: 1.15rem;
+            color: var(--deep-brown);
+            margin-bottom: 16px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--soft-sage);
+        }
+
+        .checklist-items {
+            list-style: none;
+        }
+
+        .checklist-items li {
+            padding: 12px 0;
+            border-bottom: 1px solid var(--warm-cream);
+            color: var(--text-secondary);
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .checklist-items li:last-child {
+            border-bottom: none;
+        }
+
+        .checklist-items li::before {
+            content: "";
+            width: 18px;
+            height: 18px;
+            border: 2px solid var(--muted-terracotta);
+            border-radius: 3px;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--deep-brown);
+            color: var(--soft-beige);
+            padding: 48px 24px;
+            text-align: center;
+        }
+
+        footer h3 {
+            color: white;
+            margin-bottom: 24px;
+            font-size: 1.2rem;
+        }
+
+        footer ul {
+            list-style: none;
+            margin-bottom: 32px;
+        }
+
+        footer li {
+            padding: 8px 0;
+            font-size: 0.95rem;
+        }
+
+        footer .closing {
+            font-style: italic;
+            opacity: 0.8;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .hero {
+                padding: 48px 20px;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            section {
+                padding: 40px 0;
+            }
+
+            .audio-resource, .checklist-category, .prompts-section {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <header class="hero">
+        <div class="container">
+            <h1>Completing Relationships</h1>
+            <p class="subtitle">Resources for navigating relationship endings with intention and grace</p>
+            <p class="intro">The end of a relationship is one of life's most profound transitions. These resources offer guidance for moving through this time with awareness, honoring both the grief and the growth that endings bring.</p>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-inner">
+            <p class="nav-label">What You'll Find Here</p>
+            <div class="nav-links">
+                <a href="#audio" class="nav-link">
+                    <span class="icon">&#127911;</span>
+                    <span class="text">
+                        <span class="title">Audio Resources</span>
+                        <span class="desc">Guided recordings from Bruce Fisher & David Richo</span>
+                    </span>
+                </a>
+                <a href="#six-steps" class="nav-link">
+                    <span class="icon">&#10227;</span>
+                    <span class="text">
+                        <span class="title">Six Steps Process</span>
+                        <span class="desc">A structured path from resentment to goodbye</span>
+                    </span>
+                </a>
+                <a href="#checklist" class="nav-link">
+                    <span class="icon">&#9745;</span>
+                    <span class="text">
+                        <span class="title">Practical Checklist</span>
+                        <span class="desc">Logistics of consciously separating lives</span>
+                    </span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Audio Resources Section -->
+    <section id="audio">
+        <div class="container">
+            <h2 class="section-title">Audio Resources</h2>
+            <p class="section-intro">Listen to these recordings from two respected teachers who have helped thousands navigate the journey of relationship endings.</p>
+
+            <div class="audio-resource">
+                <h3>Rebuilding When Your Relationship Ends</h3>
+                <p class="author">Dr. Bruce Fisher</p>
+                <p>Based on Dr. Fisher's landmark book and 10-week divorce recovery workshop, these recordings introduce the 19-step "Rebuilding Blocks" model. Using a mountain climbing metaphor, Fisher guides listeners through the stages of recovery: from Denial and Fear through Grief and Anger, toward Self-Worth, Trust, and ultimately Freedom. Over three quarters of a million copies of his book have been sold, offering hope to those rebuilding their lives.</p>
+                <div class="audio-players">
+                    <div class="audio-player-wrapper">
+                        <span>Part 1</span>
+                        <audio controls preload="metadata">
+                            <source src="https://aaxnoeirtjlizdhnbqbr.supabase.co/storage/v1/object/public/completing-relationships/Bruce%20Fisher%20-%20Rebuilding%20When%20Your%20Relationship%20Ends%201.mp3" type="audio/mpeg">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
+                    <div class="audio-player-wrapper">
+                        <span>Part 2</span>
+                        <audio controls preload="metadata">
+                            <source src="https://aaxnoeirtjlizdhnbqbr.supabase.co/storage/v1/object/public/completing-relationships/Bruce%20Fisher%20-%20Rebuilding%20When%20Your%20Relationship%20Ends%202.mp3" type="audio/mpeg">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
+                </div>
+            </div>
+
+            <div class="audio-resource">
+                <h3>Living Through Endings</h3>
+                <p class="author">David Richo, PhD, MFT</p>
+                <p>David Richo integrates Jungian psychology with Buddhist mindfulness in his therapeutic work. His teachings center on accepting life's unavoidable givens, including that "everything changes and ends." In these recordings, Richo offers a spiritual and psychological framework for moving through transitions, helping listeners find meaning and growth even in loss.</p>
+                <div class="audio-players">
+                    <div class="audio-player-wrapper">
+                        <span>Part 1</span>
+                        <audio controls preload="metadata">
+                            <source src="https://aaxnoeirtjlizdhnbqbr.supabase.co/storage/v1/object/public/completing-relationships/David%20Richo%20-%20Living%20Through%20Endings%201.mp3" type="audio/mpeg">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
+                    <div class="audio-player-wrapper">
+                        <span>Part 2</span>
+                        <audio controls preload="metadata">
+                            <source src="https://aaxnoeirtjlizdhnbqbr.supabase.co/storage/v1/object/public/completing-relationships/David%20Richo%20-%20Living%20Through%20Endings%202.mp3" type="audio/mpeg">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Six Steps Section -->
+    <section id="six-steps">
+        <div class="container">
+            <h2 class="section-title">Six Steps to Completing Relationships</h2>
+            <p class="section-intro">Relationships have a natural life cycle: a beginning, a middle, and an end. We live in a culture that pours endless energy into beginning relationships well, but very little into ending them well. It is possible, at the end of a relationship, to inventory the past and resolve everything in need of resolution.</p>
+            <p class="section-intro">This process clears away accumulated clutter from your past, helping you feel more free. It gives the relationship that's ended the best possible chance of moving forward with ease and positivity. And it allows you to get maximum learning from the relationship&mdash;instead of making the same mistakes over and over, you are free to make new and different ones.</p>
+            <p class="section-intro" style="margin-bottom: 40px;">This process is designed to do with a partner, but the partner does not have to be the person you are completing a relationship with. A friend or counselor can stand in for the person who can't be there. They don't need to do any role playing&mdash;all they do is listen on behalf of the person and offer simple responses like "thank you."</p>
+
+            <!-- Step 1 -->
+            <div class="accordion">
+                <button class="accordion-header">
+                    <span><span class="step-number">1</span>Communicating Resentments</span>
+                    <span class="arrow">&#9660;</span>
+                </button>
+                <div class="accordion-content">
+                    <div class="accordion-content-inner">
+                        <p>State anything and everything you might otherwise hold as a resentment about your history together. This includes whatever is upsetting to you about the way the relationship ended or is currently ending. You can include specific historical incidents that you hold onto as well as overall trends in your partner's behavior throughout stretches of the relationship.</p>
+                        <p>The idea here is that expressing what you're angry about, letting your partner know what was not okay with you, can often complete it for you. You no longer need to carry the resentment around inside yourself. Your partner has heard it clearly spoken.</p>
+                        <div class="example">"I'm still mad at you for the time we ran into your cousin and you didn't introduce me, as if you were embarrassed about me."</div>
+                        <div class="example">"I resent you for not putting more effort into falling back in love with me. I think you just got resigned, and our relationship deserved better than that."</div>
+                        <div class="example">"I wish you hadn't been so sick these last few years. It's really limited you and me and what we can do together. I realize there's nothing you could have done about it, but I still resent you for it."</div>
+                        <div class="example">"I resent you for not listening to me."</div>
+                        <p>Note that these don't have to be particularly enlightened or self-aware statements. Your resentments may or may not be justified. It doesn't matter. They may reveal your pettiness and tendency to blame others rather than taking responsibility. That doesn't matter either. What matters is that you are speaking them with the intention to clear them up.</p>
+                        <p>After your partner expresses each resentment, it can be useful to just say "thank you," thanking them for saying it out loud rather than just holding onto it and silently believing it about you indefinitely into the future. Do not respond in any other way, in particular in your own defense. The idea is just to hear what your partner has to say to you. Really try to take it in, even if it makes you feel bad.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="accordion">
+                <button class="accordion-header">
+                    <span><span class="step-number">2</span>Apologizing</span>
+                    <span class="arrow">&#9660;</span>
+                </button>
+                <div class="accordion-content">
+                    <div class="accordion-content-inner">
+                        <p>After you have both stated your resentments and heard your partner's, it often naturally happens that you want to apologize. Take some time to tell your partner everything you want to apologize for, which may or may not include the things they expressed resentment about.</p>
+                        <p>Apologizing is appropriate if you realize, in retrospect, that you wish things had gone differently, or that you had behaved differently (for example, if you know you screwed something up). Apologizing is challenging. Often we don't apologize because we feel so bad about our role in past events. In order to apologize to your partner, you almost have to implicitly forgive yourself, which is not always easy.</p>
+                        <p>Keep in mind that you are apologizing for your own sake, about the things YOU need to apologize for. This is the complement to expressing resentments, an opportunity to clear up what was not okay with you about your own behavior.</p>
+                        <div class="example">"I'm sorry that instead of telling you the truth about how I felt, I tried to 'protect your feelings,' but in doing so, left you guessing and confused."</div>
+                        <div class="example">"I'm sorry about the times when we got into arguments and I kept yelling long after I realized that the argument was going nowhere. I don't know how I could have stopped myself, but I wish I had, and I'm sorry that I hurt you."</div>
+                        <div class="example">"I'm sorry I failed to show up on time. I know how important that is to you."</div>
+                        <p>Note that the most effective apologies include an acknowledgment of the negative impact you had on the other person. They do not include justifications for your behavior. Again, don't respond except by thanking them for the apology, even if they do it clumsily. Especially don't try to dismiss what they are saying. The apology is important to them even if it doesn't seem like a big deal to you.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="accordion">
+                <button class="accordion-header">
+                    <span><span class="step-number">3</span>Forgiving</span>
+                    <span class="arrow">&#9660;</span>
+                </button>
+                <div class="accordion-content">
+                    <div class="accordion-content-inner">
+                        <p>Having expressed your resentment and heard your partner's apologies, it is natural to want to forgive them. Forgiveness does not imply that you condone your partner's past bad behavior. Forgiveness comes from having compassion toward them and being able to imagine how, when everything is taken into account, their behavior was somehow constrained to be what it was.</p>
+                        <p>In the future, you may expect them to never repeat the behavior, but you are willing to forgive past transgressions, to give up the right to resent them into the future. Forgiving is something you're doing for yourself. You may or may not be forgiving your partner for the things they apologized for. Rather, you are doing this for YOU, to give yourself the opportunity to get complete with everything that happened.</p>
+                        <div class="example">"I forgive you for not cooking for me more often, even though you often said you would."</div>
+                        <div class="example">"I forgive you for being so insensitive during the last few months. While I wish you had been more thoughtful about me, I realize that you had your own stresses to manage."</div>
+                        <div class="example">"I wish you hadn't done the things you did, but I understand that you didn't have the inner resources to act any differently, and so I choose to forgive you."</div>
+                        <p>Forgiveness is a deeply spiritual practice. It can be difficult to do before expressing your anger and resentment. Once you've done both, in the proper sequence, you are left much lighter. Thank your partner for each thing they are being gracious enough to forgive you for. These may or may not be things that you think you need to be forgiven for, but they are things your partner has been holding onto, and the expression of forgiveness indicates their intention to stop doing that. That's worth a sincere thank you!</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="accordion">
+                <button class="accordion-header">
+                    <span><span class="step-number">4</span>Expressing Gratitude</span>
+                    <span class="arrow">&#9660;</span>
+                </button>
+                <div class="accordion-content">
+                    <div class="accordion-content-inner">
+                        <p>Now that you have made your way through many of the negatives of your past (transgressions, omissions, unfortunate incidents), you will hopefully have cleared some space to recognize the incredible contributions your partner has made to your life. This is a chance to recognize all the ways you are different because of your life with your partner up until now. You may take many of these things for granted, yet it is likely that much of who you are now is a result of what your partner has given to you.</p>
+                        <div class="example">"Thank you for believing in me when I was so insecure about whether I was a good enough parent."</div>
+                        <div class="example">"Thank you for all these years of cuddling night after night. Affection with you has fed me consistently and made me feel deserving of love."</div>
+                        <div class="example">"Thank you for teaching me how to do math in my head!"</div>
+                        <div class="example">"Thank you for forcing me to learn to stand up for myself by acting like such a jerk whenever we got into conflicts. I really have become stronger as a result."</div>
+                        <p>This step, and the next one, are about recognizing the positives. Expressing these is essential to completing the past, as we are at least as likely to hold back our appreciations as our negative feelings. Instead of thanking your partner for thanking you, offer some equivalent of "you're welcome" or "it was my pleasure."</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 5 -->
+            <div class="accordion">
+                <button class="accordion-header">
+                    <span><span class="step-number">5</span>Appreciating What You Loved and Will Miss</span>
+                    <span class="arrow">&#9660;</span>
+                </button>
+                <div class="accordion-content">
+                    <div class="accordion-content-inner">
+                        <p>Having shared your gratitude for all the ways your partner has changed you, take some time to honor and acknowledge what you loved about them and about who you were together. It is especially important at the end of a relationship not to pretend to yourself that you don't care about what you are losing.</p>
+                        <p>In the short term, it can feel easier to justify separating if you devalue your partner or your past. In the long term, this will leave you incomplete. To counteract the pull to devalue your past, share everything you will miss. Be real. This is often where grieving comes into the process, though sometimes having gone through all the preliminary steps makes this last one just a pleasure.</p>
+                        <p>It is important to remember that ending does not equal failure. You have had a long, successful relationship that, for whatever reason, is now ending.</p>
+                        <div class="example">"I'll miss telling you about my day when I get home in the evening, and hearing about all the details of yours."</div>
+                        <div class="example">"I loved going on adventures together. We were good together. I'll miss that."</div>
+                        <div class="example">"I'll miss being a part of your family, even if I never fully figured out how to make them my own."</div>
+                        <div class="example">"I've loved getting to look into your beautiful eyes. I'm sad I won't get to see them anymore."</div>
+                        <p>Thank your partner for acknowledging what has been good. You may discover tears accompanying this step. Crying is a natural and helpful part of letting go.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 6 -->
+            <div class="accordion">
+                <button class="accordion-header">
+                    <span><span class="step-number">6</span>Saying Goodbye</span>
+                    <span class="arrow">&#9660;</span>
+                </button>
+                <div class="accordion-content">
+                    <div class="accordion-content-inner">
+                        <p>Saying goodbye is an optional stage. If you are both clear that you are ending a relationship, you might want to each take a moment to say "Goodbye." The goodbye may be symbolic (that is, not implying you will never see each other again). It is a chance to acknowledge, out loud, in no uncertain terms, that something is ending.</p>
+                        <p>The relationship is over, and while it may still be difficult to understand what that means, it is important to face it together, in part in order to allow yourselves to grieve. If you are engaged in this process to complete the past of an ongoing relationship, saying goodbye can mean saying goodbye to the past. You are ending a chapter, choosing to step across a threshold together into a different future.</p>
+                        <p>After this process is over, you may choose to declare the past complete. You will still remember each other, still move forward in the world having been changed by the story you have lived together until this point. The future you have opened up, however, will now be unpredictable. The past is determined. The future is free choice.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Completion Prompts -->
+            <div class="prompts-section">
+                <h3>Completion Prompts</h3>
+                <p class="prompts-intro">Use these prompts to guide your completion conversation. You can work through them alone in a journal, with a friend standing in, or with your former partner.</p>
+                <ul class="prompts-list">
+                    <li>What I appreciate about you is ...</li>
+                    <li>What I wanted most was ...</li>
+                    <li>What I regret most is ...</li>
+                    <li>What I apologize for is ...</li>
+                    <li>What I want you to apologize for is ...</li>
+                    <li>What I forgive you for is ...</li>
+                    <li>What I want you to forgive me for is ...</li>
+                    <li>What I forgive myself for is ...</li>
+                    <li>What I love about you is ...</li>
+                    <li>What I learned from you was ...</li>
+                    <li>What I want you to know about me is ...</li>
+                    <li>What I was afraid to say to you is ...</li>
+                    <li>What inspired me most about being with you was ...</li>
+                    <li>What inspires me most about you now is ...</li>
+                    <li>What I want for you in your life is ...</li>
+                    <li>What I trust in you most is ...</li>
+                    <li>What I want you to be left with from me is ...</li>
+                    <li>What I release you from is ...</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Practical Checklist Section -->
+    <section id="checklist">
+        <div class="container">
+            <h2 class="section-title">Conscious Relationship Closure Process</h2>
+            <p class="section-intro">Beyond the emotional work of completion, there are practical matters to address. This checklist helps you thoughtfully navigate the logistics of separating your lives while maintaining clarity and mutual respect.</p>
+
+            <div class="checklist-category">
+                <h3>Communication</h3>
+                <ul class="checklist-items">
+                    <li>Who to tell? How to tell friends/family?</li>
+                    <li>What will be said, how will the relationship be represented?</li>
+                    <li>How to stay in communication: letters, calls, email, visits?</li>
+                </ul>
+            </div>
+
+            <div class="checklist-category">
+                <h3>Boundaries & Agreements</h3>
+                <ul class="checklist-items">
+                    <li>Dating Others: What agreements do you want to observe? Tell or not tell? Time frame?</li>
+                    <li>Seeing Each Other: What agreements do we want? Areas you frequent?</li>
+                    <li>Sex: Will it continue or not? Will you make love one more time?</li>
+                    <li>Time-Out: Do we take one? For how long?</li>
+                </ul>
+            </div>
+
+            <div class="checklist-category">
+                <h3>Financial & Material</h3>
+                <ul class="checklist-items">
+                    <li>Money: What is owed to the other? What common debts do we share and how to pay?</li>
+                    <li>Possessions: What needs to be separated? When will it be moved out? Storage? How long? Which ones do we need to negotiate on? What needs to be returned?</li>
+                </ul>
+            </div>
+
+            <div class="checklist-category">
+                <h3>Living Arrangements</h3>
+                <ul class="checklist-items">
+                    <li>Home: Who stays? Who leaves? When to move out? Selling a mutually owned house?</li>
+                    <li>Holidays/Activities: How to celebrate upcoming holidays? Birthdays? Valentine's Day?</li>
+                </ul>
+            </div>
+
+            <div class="checklist-category">
+                <h3>Family & Dependents</h3>
+                <ul class="checklist-items">
+                    <li>Children: Visiting of children or not? When? What agreements around coming over?</li>
+                    <li>Pets: (either previously owned or commonly acquired) Visiting or not? When? How?</li>
+                </ul>
+            </div>
+
+            <div class="checklist-category">
+                <h3>Support & Moving Forward</h3>
+                <ul class="checklist-items">
+                    <li>Legal Assistance: Mediation required? Who files papers? What about custody of children/pets? What other legal obligations need sorting out?</li>
+                    <li>Counseling/Therapy: Will we need outside support to complete on the emotional side of the separation? How will we pay? What time commitment will we give it?</li>
+                    <li>Staying Related: Will we develop a friendship? What agreements to be friends?</li>
+                    <li>Self-Care: What is needed to take care of yourself during this transition? Create a strategy of things and experiences to look forward to that nurtures and attends to the grieving/healing process.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <h3>Sources & Acknowledgments</h3>
+            <ul>
+                <li>Steve Bearman &mdash; Six Steps to Completing Relationships (Interchange Counseling)</li>
+                <li>Designing Access &mdash; Conscious Relationship Closure Process</li>
+                <li>Dr. Bruce Fisher &mdash; Rebuilding When Your Relationship Ends</li>
+                <li>David Richo, PhD, MFT &mdash; Living Through Endings</li>
+            </ul>
+            <p class="closing">Taking the time to complete your relationships consciously, no matter how long it takes, is a gift to yourself and to those you've loved. Your future self deserves it.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Accordion functionality
+        document.querySelectorAll('.accordion-header').forEach(button => {
+            button.addEventListener('click', () => {
+                const content = button.nextElementSibling;
+                const isActive = button.classList.contains('active');
+
+                // Close all accordions
+                document.querySelectorAll('.accordion-header').forEach(btn => {
+                    btn.classList.remove('active');
+                    btn.nextElementSibling.style.maxHeight = null;
+                });
+
+                // Open clicked accordion if it wasn't active
+                if (!isActive) {
+                    button.classList.add('active');
+                    content.style.maxHeight = content.scrollHeight + 'px';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
