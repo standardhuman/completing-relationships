@@ -1,0 +1,13 @@
+.vercel
+
+# OS files
+.DS_Store
+
+# Audio files (hosted on Supabase)
+*.mp3
+
+# Source text files
+*.txt
+
+# Supabase local config
+supabase/
